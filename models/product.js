@@ -11,7 +11,9 @@ const productsSchemaJoi = Joi.object({
 
 const schemaProduct = Schema(
   {
-    categories: [{ 0: String, required: true }],
+    categories: {
+      type: Array,
+    },
     weight: {
       type: Number,
       default: 100,
@@ -24,19 +26,13 @@ const schemaProduct = Schema(
       type: Number,
       default: 100,
     },
-    groupBloodNotAllowed: [
-      {
-        0: null,
-        1: Boolean,
-        2: Boolean,
-        3: Boolean,
-        4: Boolean,
-      },
-    ],
-    token: {
-      type: String,
-      default: null,
+    groupBloodNotAllowed: {
+      type: Array,
     },
+    // token: {
+    //   type: String,
+    //   default: null,
+    // },
   },
   { versionKey: false, timestamps: true }
 );
