@@ -1,18 +1,19 @@
-const Joi = require("joi");
+// const Joi = require("joi");
 const { Schema, model } = require("mongoose");
 
-const productsSchemaJoi = Joi.object({
-  categories: Joi.array().required(),
-  weight: Joi.number().required(),
-  title: Joi.object().required(),
-  calories: Joi.number().required(),
-  groupBloodNotAllowed: Joi.array().required(),
-});
+// const productsSchemaJoi = Joi.object({
+//   categories: Joi.array().required(),
+//   weight: Joi.number().required(),
+//   title: Joi.object().required(),
+//   calories: Joi.number().required(),
+//   groupBloodNotAllowed: Joi.array().required(),
+// });
 
 const schemaProduct = Schema(
   {
     categories: {
       type: Array,
+      required: true,
     },
     weight: {
       type: Number,
@@ -28,6 +29,7 @@ const schemaProduct = Schema(
     },
     groupBloodNotAllowed: {
       type: Array,
+      required: true,
     },
     // token: {
     //   type: String,
@@ -39,4 +41,4 @@ const schemaProduct = Schema(
 
 const Product = model("product", schemaProduct);
 
-module.exports = { productsSchemaJoi, Product };
+module.exports = { Product };

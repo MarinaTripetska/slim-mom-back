@@ -1,23 +1,22 @@
 const { Product } = require("../models/product");
 
-const getAll = async (req, res, next) => {
+const getProducts = async (req, res, next) => {
   try {
+    const { query = "" } = req.query;
     const products = await Product.find();
-    console.log(products);
-    res.status(200).json({ code: 200, data: products });
+    const arrayFoundProducts = [];
+    products.filter((prod) => {
+      const itemProduct = prod.title.ua.toLowerCase().trim();
+      if (itemProduct.includes(query.toLowerCase().trim())) {
+        return arrayFoundProducts.push(prod);
+      }
+      return arrayFoundProducts;
+    });
+
+    res.status(200).json({ code: 200, data: arrayFoundProducts });
   } catch (error) {
     next(error);
   }
 };
 
-const getProductsForQuery = async (req, res, next) => {
-  try {
-    const { query } = req.params;
-    const products = await Product.find({ title: { ua: query } });
-    res.status(200).json({ code: 200, data: products });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { getAll, getProductsForQuery };
+module.exports = { getProducts };

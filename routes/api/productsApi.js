@@ -1,14 +1,9 @@
 const express = require("express");
-// const auth = require("../../middlewares/auth");
-const {
-  getAll,
-  getProductsForQuery,
-} = require("../../controllers/controllersProducts");
+
+const { getProducts } = require("../../controllers/controllersProducts");
 
 const router = express.Router();
 
-router.get("/", getAll);
-
-router.get("/:query", getProductsForQuery);
+router.get("/", getProducts);
 
 module.exports = router;
