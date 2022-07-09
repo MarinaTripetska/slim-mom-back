@@ -1,7 +1,7 @@
-const userDietRouter = require("./userDiet");
-const productsRouter = require("./productsApi");
+const productsRouter = require("./products");
+const userRouter = require("./user");
 
 module.exports = {
-  userDietRouter,
   productsRouter,
+  userRouter,
 };

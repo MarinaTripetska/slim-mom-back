@@ -3,7 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 
-const { userDietRouter, productsRouter } = require("./routes/api");
+const { userRouter, productsRouter } = require("./routes/api");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -11,8 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger(formatsLogger));
 
-app.use("/users", userDietRouter);
-
+app.use("/api/users", userRouter);
 app.use("/api/v1/products", productsRouter);
 
 app.use((_, res, next) => {
