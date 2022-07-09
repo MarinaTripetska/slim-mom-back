@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-// const Joi = require("joi");
 
 const productSchema = Schema(
   {
@@ -23,16 +22,10 @@ const productSchema = Schema(
       type: Array,
       required: true,
     },
-    // token: {
-    //   type: String,
-    //   default: null,
-    // },
   },
   { versionKey: false, timestamps: true }
 );
 
 const Product = model("product", productSchema);
 
-module.exports = {
-  Product,
-};
+module.exports = { Product };

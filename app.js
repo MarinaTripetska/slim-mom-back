@@ -6,6 +6,8 @@ const userRouter = require("./routes/api/users");
 
 const app = express();
 
+const productsRouter = require("./routes/api/productsApi");
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(cors());
@@ -13,6 +15,7 @@ app.use(express.json());
 app.use(logger(formatsLogger));
 
 app.use("/api/users", userRouter);
+app.use("/api/v1/products", productsRouter);
 
 app.use((_, res, next) => {
   next({ status: 404, message: "Not found" });
