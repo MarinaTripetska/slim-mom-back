@@ -1,6 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+
+const userRouter = require("./routes/api/users");
+
 const app = express();
 
 const productsRouter = require("./routes/api/productsApi");
@@ -11,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger(formatsLogger));
 
+app.use("/api/users", userRouter);
 app.use("/api/v1/products", productsRouter);
 
 app.use((_, res, next) => {
