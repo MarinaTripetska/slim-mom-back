@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get("/", ctrlWrapper(getAllProducts));
 
-router.get("/search", getProductsForQuery);
+router.get("/search", ctrlWrapper(getProductsForQuery));
 
 module.exports = router;

@@ -1,9 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const schemaDate = Schema(
+const schemaDietDay = Schema(
   {
     date: {
-      products: Array,
+      type: String,
+    },
+    products: {
+      type: Array,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -13,6 +16,6 @@ const schemaDate = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Date = model("date", schemaDate);
+const DietDay = model("daytime", schemaDietDay);
 
-module.exports = { Date };
+module.exports = { DietDay };
