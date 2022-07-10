@@ -1,4 +1,5 @@
 const { Product } = require("./product");
-const { User } = require("./user");
+const { User, joiRegisterSchema, joiLoginSchema } = require("./user");
+const { Dietary } = require("./dietary");
 
-module.exports = { User, Product };
+module.exports = { User, Dietary, Product, joiRegisterSchema, joiLoginSchema };
