@@ -61,17 +61,17 @@ const joiRegisterSchema = Joi.object({
       tlds: { allow: ["com", "net"] },
     })
     .required(),
-  name: Joi.string().required()
+  name: Joi.string().required(),
 });
 
 const joiLoginSchema = Joi.object({
-password: Joi.string().required(),
-email: Joi.string()
-  .email({
-    minDomainSegments: 2,
-    tlds: { allow: ["com", "net"] },
-  })
-  .required(),
+  password: Joi.string().required(),
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net"] },
+    })
+    .required(),
 });
 
 const User = model("user", userSchema);
@@ -80,5 +80,5 @@ module.exports = {
   User,
   joiUserInfoSchema,
   joiRegisterSchema,
-  joiLoginSchema
+  joiLoginSchema,
 };
