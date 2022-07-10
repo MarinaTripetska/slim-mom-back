@@ -13,9 +13,4 @@ router.get(
   ctrlWrapper(userCtrl.getNotLoggedUserDietAdvice)
 );
 
-// TODO: need auth midlwr
-router.put("/daily-diet", userCtrl.updateDailyDiet);
-// TODO: need auth midlwr
-router.delete("/daily-diet", userCtrl.deleteDailyDiet);
-
 module.exports = router;

@@ -2,6 +2,6 @@
 // - юзер висилає дані: дата і масив їжі
 // - якщо дати немає, видаем помилку
 // -якщо дата є: перебираєм масив продуктів і видаляєм те що прислав юзер
-const deleteDailyDiet = (req, res, next) => {};
+const deleteDailyDiet = async (req, res, next) => {};
 
 module.exports = deleteDailyDiet;
