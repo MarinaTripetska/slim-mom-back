@@ -3,9 +3,9 @@ const { createError } = require("../../errors/createError");
 
 const getDietDay = async (req, res, next) => {
   try {
-    const { _id = "62c97435fbc24adb2e6f590a" } = req.user;
-    // const id = "62c97435fbc24adb2e6f590a";
+    const { _id } = req.user;
     const { date } = req.body;
+
     const findDay = await Dietary.findOne({
       owner: _id,
       date: date,

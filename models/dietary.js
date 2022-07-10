@@ -5,9 +5,11 @@ const dietarySchema = Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
     date: {
       type: String,
+      required: true,
     },
     products: [
       {
@@ -22,5 +24,6 @@ const dietarySchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Dietary = model("dietary", dietarySchema);
+const Dietary = model("dietary", dietarySchema, "dietary");
+
 module.exports = { Dietary };
