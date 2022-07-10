@@ -1,6 +1,6 @@
 const express = require("express");
 const { ctrlWrapper } = require("../../middlewares");
-const getDietDay = require("../../controllers/dietDays");
+const getDietDay = require("../../controllers/dietaries");
 
 const router = express.Router();
 

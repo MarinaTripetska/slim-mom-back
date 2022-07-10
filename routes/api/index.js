@@ -1,9 +1,9 @@
 const productsRouter = require("./products");
 const userRouter = require("./user");
-const datesRouter = require("./dietDay");
+const dietariesRouter = require("./dietaries");
 
 module.exports = {
   productsRouter,
   userRouter,
-  datesRouter,
+  dietariesRouter,
 };
