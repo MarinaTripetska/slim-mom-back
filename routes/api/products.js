@@ -1,17 +1,13 @@
 const express = require("express");
-
-// const {
-//   getAllProducts,
-//   getProductsForQuery,
-// } = require("../../controllers/products");
+const { ctrlWrapper } = require("../../middlewares");
 const {
   productsCtrl: { getAllProducts, getProductsForQuery },
 } = require("../../controllers");
 
 const router = express.Router();
 
-router.get("/", getAllProducts);
+router.get("/", ctrlWrapper(getAllProducts));
 
-router.get("/search", getProductsForQuery);
+router.get("/search", ctrlWrapper(getProductsForQuery));
 
 module.exports = router;
