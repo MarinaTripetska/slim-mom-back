@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { ctrlWrapper, validation } = require("../../middlewares");
+const { ctrlWrapper, validation, auth } = require("../../middlewares");
 const { joiUserInfoSchema } = require("../../models/user");
 
 const { userCtrl } = require("../../controllers");
@@ -11,6 +11,13 @@ router.get(
   "/getNutritionAdvice",
   validation(joiUserInfoSchema),
   ctrlWrapper(userCtrl.getNotLoggedUserDietAdvice)
+);
+
+router.post(
+  "/loggedUserNutritionAdvice",
+  validation(joiUserInfoSchema),
+  ctrlWrapper(auth),
+  ctrlWrapper(userCtrl.getLoggedUserDietAdvice)
 );
 
 // -юзер висилає дані: дата і масив їжі
