@@ -5,7 +5,6 @@ const { User } = require("../../models");
 
 const getLoggedUserDietAdvice = async (req, res) => {
   const { _id } = req.user;
-  // const _id = "62c9cdeb55f480fbffaba60c";
   const { height, age, currentWeight, desiredWeight, bloodType } =
     req.body.userData;
   const userDailyCalorieIntake = dailyCalorieIntake(
@@ -29,12 +28,16 @@ const getLoggedUserDietAdvice = async (req, res) => {
     },
     { new: true }
   );
-  console.log(result);
+
   res.json({
     status: "success",
     code: 200,
     data: {
-      result,
+      user: {
+        userInfo: result.userInfo,
+        userDailyCalorieIntake: result.userDailyCalorieIntake,
+        userNotRecommendedProducts: result.userNotRecommendedProducts,
+      },
     },
   });
 };
