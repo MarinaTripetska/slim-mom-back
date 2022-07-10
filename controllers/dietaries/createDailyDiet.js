@@ -1,11 +1,11 @@
 const { createError } = require("../../errors/createError");
 const { dietaryService } = require("../../services");
 
-const createDailyDiet = async (req, res) => {
-  // const { id: userId } = req.user;
-  const { date, products, userId } = req.body;
+const createDailyDiet = async (req, res, next) => {
+  const { _id } = req.user;
 
-  const result = dietaryService.createDietary(userId, { date, products });
+  const result = await dietaryService.createDietary(_id, req.body);
+  console.log("result", result);
 
   if (!result) {
     throw createError(404, "Not found");
@@ -15,7 +15,7 @@ const createDailyDiet = async (req, res) => {
     status: "Create",
     code: 201,
     data: {
-      ...result,
+      result,
     },
   });
 };

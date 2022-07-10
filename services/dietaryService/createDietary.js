@@ -1,19 +1,21 @@
+const { createError } = require("../../errors/createError");
 const { Dietary } = require("../../models");
-const findDietary = require("./findDietary");
 
-const createDietary = async (userId, dietary) => {
-  const { date, products } = dietary;
+const createDietary = async (_id, payload) => {
+  const { date, products } = payload;
 
-  const userDietary = await findDietary(userId, date);
+  const dietaryExist = await Dietary.findOne({ owner: _id })
+    .where("date")
+    .equals(date);
 
-  if (userDietary) {
-    // return this userDietary
+  if (dietaryExist) {
+    throw createError(404, "Dietary already exists.");
   }
 
   return await Dietary.create({
-    owner: userId,
+    products,
     date,
-    products: [...products],
+    owner: _id,
   });
 };
 

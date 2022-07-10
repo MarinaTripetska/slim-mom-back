@@ -45,15 +45,12 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-const joiRegisterSchema = Joi.object({
-  password: Joi.string().required(),
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
-    .required(),
-  name: Joi.string().required(),
+const joiUserInfoSchema = Joi.object({
+  height: Joi.string().required(),
+  age: Joi.string().required(),
+  currentWeight: Joi.string().required(),
+  desiredWeight: Joi.string().required(),
+  bloodType: Joi.string().required(),
 });
 
 const joiRegisterSchema = Joi.object({
