@@ -13,8 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger(formatsLogger));
 
-app.use("/api/auth", authRouter);
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/users", authRouter, userRouter);
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/dietaries", dietariesRouter);
 
