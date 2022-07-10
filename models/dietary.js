@@ -15,11 +15,12 @@ const dietarySchema = Schema(
           type: Schema.Types.ObjectId,
           ref: "product",
         },
-        weight: Number, // in gramm
+        weightGrm: Number,
       },
     ],
   },
   { versionKey: false, timestamps: true }
 );
+
 const Dietary = model("dietary", dietarySchema);
 module.exports = { Dietary };
