@@ -5,5 +5,5 @@ const auth = require("./auth");
 module.exports = {
   ctrlWrapper,
   validation,
-  auth
+  auth,
 };

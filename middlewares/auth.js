@@ -6,6 +6,7 @@ const { SECRET_KEY } = process.env;
 
 const auth = async (req, res, next) => {
   const { authorization = "" } = req.headers;
+
   try {
     if (!authorization) {
       throw new Unauthorized("Not authorized");
@@ -22,7 +23,10 @@ const auth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    if (error.message.toLowerCase() === "invalid signature") {
+    if (
+      error.message.toLowerCase() === "invalid signature" ||
+      error.name === "JsonWebTokenError"
+    ) {
       error.status = 401;
     }
     next(error);

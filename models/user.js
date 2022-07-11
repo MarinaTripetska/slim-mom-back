@@ -46,11 +46,13 @@ userSchema.methods.comparePassword = function (password) {
 };
 
 const joiUserInfoSchema = Joi.object({
-  height: Joi.string().required(),
-  age: Joi.string().required(),
-  currentWeight: Joi.string().required(),
-  desiredWeight: Joi.string().required(),
-  bloodType: Joi.string().required(),
+  userData: Joi.object({
+    height: Joi.string().required(),
+    age: Joi.string().required(),
+    currentWeight: Joi.string().required(),
+    desiredWeight: Joi.string().required(),
+    bloodType: Joi.string().required(),
+  }),
 });
 
 const joiRegisterSchema = Joi.object({
