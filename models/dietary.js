@@ -28,6 +28,6 @@ const dietarySchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Dietary = model("dietary", dietarySchema, "dietary");
+const Dietary = model("dietaries", dietarySchema);
 
 module.exports = { Dietary };

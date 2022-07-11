@@ -1,21 +1,20 @@
-// const { dietaryService } = require("../../services");
-// const { Dietary } = require("../../models");
+const { Dietary } = require("../../models");
 
 const deleteDailyDiet = async (req, res, next) => {
-  //   const { productId } = req.params;
-  //   const { _id: userId } = req.user;
+  const { productId } = req.params;
+  const { _id } = req.user;
+  const { date } = req.body;
 
-  //   const result = dietaryService.deleteDietary(productId, userId, req.body);
-
-  //   const dietary = await Dietary.findOne({
-  //     owner: userId,
-  //     date: req.body.date,
-  //   })
+  await Dietary.findOneAndUpdate(
+    { date: date, owner: _id },
+    { $pull: { products: { product: productId } } },
+    { new: true }
+  );
 
   res.status(200).json({
     status: "Deleted",
-    code: 200,
-    data: {},
+    code: 204,
+    message: `Product with id ${productId} deleted`,
   });
 };
 
