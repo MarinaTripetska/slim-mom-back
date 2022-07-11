@@ -1,5 +1,4 @@
 const { Dietary } = require("../../models");
-const { createError } = require("../../errors/createError");
 
 const getDietDay = async (req, res) => {
   const { _id } = req.user;
@@ -9,12 +8,6 @@ const getDietDay = async (req, res) => {
     path: "products.product",
     select: "_id title calories",
   });
-
-  console.log(findDay);
-
-  if (findDay === []) {
-    return createError(404, "Not found");
-  }
 
   res.status(200).json({
     status: "OK",
