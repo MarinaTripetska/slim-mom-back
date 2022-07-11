@@ -8,8 +8,8 @@ router.get("/", auth, ctrlWrapper(dietaryCtrl.getDietDay));
 
 router.post("/", auth, ctrlWrapper(dietaryCtrl.createDailyDiet));
 
-// router.put("/", ctrlWrapper(dietaryCtrl.updateDailyDiet));
+router.put("/", auth, ctrlWrapper(dietaryCtrl.updateDailyDiet));
 
-// router.delete("/", ctrlWrapper(dietaryCtrl.deleteDailyDiet));
+router.delete("/:productId", auth, ctrlWrapper(dietaryCtrl.deleteDailyDiet));
 
 module.exports = router;

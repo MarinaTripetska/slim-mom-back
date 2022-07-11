@@ -6,9 +6,11 @@ const dietarySchema = Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
     date: {
       type: String,
+      required: true,
     },
     products: [
       {
@@ -23,6 +25,10 @@ const dietarySchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
+const Dietary = model("dietary", dietarySchema, "dietary");
+
+module.exports = { Dietary };
+
 // const joiDietarySchema = Joi.object({
 //   date: Joi.string().required(),
 //   products: Joi.array().object().keys({
@@ -30,6 +36,3 @@ const dietarySchema = Schema(
 //     weightGrm: Joi.number().required(),
 //   }),
 // });
-
-const Dietary = model("dietary", dietarySchema);
-module.exports = { Dietary };
