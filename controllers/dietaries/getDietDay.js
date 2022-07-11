@@ -7,15 +7,17 @@ const getDietDay = async (req, res, next) => {
 
   const findDay = await Dietary.find({ date: date, owner: _id });
 
-  if (!findDay) {
-    throw createError(404, "Not found");
+  console.log(findDay);
+
+  if (findDay === []) {
+    return createError(404, "Not found");
   }
 
   res.status(200).json({
     status: "OK",
     code: 200,
     data: {
-      result: { ...findDay },
+      result: findDay,
     },
   });
 };
