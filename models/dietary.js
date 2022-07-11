@@ -1,25 +1,3 @@
-// const { Schema, model } = require("mongoose");
-
-// const schemaDietDay = Schema(
-//   {
-//     dietDay: {
-//       type: String,
-//     },
-//     products: {
-//       type: Array,
-//     },
-//     owner: {
-//       type: Schema.Types.ObjectId,
-//       ref: "user",
-//     },
-//   },
-//   { versionKey: false, timestamps: true }
-// );
-
-// const DietDay = model("daytime", schemaDietDay);
-
-// module.exports = { DietDay };
-
 const { Schema, model } = require("mongoose");
 
 const dietarySchema = Schema(
@@ -27,9 +5,11 @@ const dietarySchema = Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
     date: {
       type: String,
+      required: true,
     },
     products: [
       {
@@ -37,11 +17,13 @@ const dietarySchema = Schema(
           type: Schema.Types.ObjectId,
           ref: "product",
         },
-        wieght: Number, // in gramm
+        wieghtGrm: Number,
       },
     ],
   },
   { versionKey: false, timestamps: true }
 );
-const Dietary = model("dietary", dietarySchema);
+
+const Dietary = model("dietary", dietarySchema, "dietary");
+
 module.exports = { Dietary };
