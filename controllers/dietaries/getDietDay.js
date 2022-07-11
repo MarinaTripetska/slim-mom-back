@@ -5,7 +5,10 @@ const getDietDay = async (req, res) => {
   const { _id } = req.user;
   const { date } = req.body;
 
-  const findDay = await Dietary.find({ date: date, owner: _id });
+  const findDay = await Dietary.find({ date: date, owner: _id }).populate({
+    path: "products.product",
+    select: "_id title calories",
+  });
 
   console.log(findDay);
 
