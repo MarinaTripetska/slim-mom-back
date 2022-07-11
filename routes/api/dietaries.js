@@ -6,10 +6,8 @@ const router = express.Router();
 
 router.get("/", auth, ctrlWrapper(dietaryCtrl.getDietDay));
 
-router.post("/", auth, ctrlWrapper(dietaryCtrl.addDietDay));
+router.post("/", auth, ctrlWrapper(dietaryCtrl.createDailyDiet));
 
-router.put("/:productId", auth, ctrlWrapper(dietaryCtrl.updateDailyDiet));
-
-// router.delete("/", ctrlWrapper(dietaryCtrl.deleteDailyDiet));
+router.patch("/", auth, ctrlWrapper(dietaryCtrl.updateDailyDiet));
 
 module.exports = router;

@@ -12,11 +12,7 @@ const createDietary = async (_id, payload) => {
     throw createError(404, "Dietary already exists.");
   }
 
-  return await Dietary.create({
-    products,
-    date,
-    owner: _id,
-  });
+  return await Dietary.create({ owner: _id, date, products });
 };
 
 module.exports = createDietary;
