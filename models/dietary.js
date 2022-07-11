@@ -16,14 +16,18 @@ const dietarySchema = Schema(
         product: {
           type: Schema.Types.ObjectId,
           ref: "product",
+          required: true,
         },
-        wieghtGrm: Number,
+        weightGrm: {
+          type: Number,
+          required: true,
+        },
       },
     ],
   },
   { versionKey: false, timestamps: true }
 );
 
-const Dietary = model("dietary", dietarySchema, "dietary");
+const Dietary = model("dietaries", dietarySchema);
 
 module.exports = { Dietary };
