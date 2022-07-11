@@ -21,3 +21,17 @@ POST: 'host'/api/v1/users/login
 
 Logout users :
 GET: 'host'/api/v1/users/logout
+
+Dietary
+
+Get diet day :
+GET: 'host'/api/v1/dietaries/
+
+Create daily diet :
+POST: 'host'/api/v1/dietaries/
+
+Update daily diet:
+PATCH: 'host'/api/v1/dietaries/
+
+Delete daily diet:
+DELETE: 'host'/api/v1/dietaries/:productId
