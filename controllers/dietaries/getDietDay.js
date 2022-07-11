@@ -1,14 +1,9 @@
 const { Dietary } = require("../../models");
 const { createError } = require("../../errors/createError");
 
-const getDietDay = async (req, res, next) => {
+const getDietDay = async (req, res) => {
   const { _id } = req.user;
   const { date } = req.body;
-
-  // const findDay = await Dietary.findOne({
-  //   owner: _id,
-  //   date: date,
-  // }).populate("owner", "_id name email");
 
   const findDay = await Dietary.find({ date: date, owner: _id });
 

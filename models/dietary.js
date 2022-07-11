@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-// const Joi = require("joi");
 
 const dietarySchema = Schema(
   {
@@ -17,8 +16,12 @@ const dietarySchema = Schema(
         product: {
           type: Schema.Types.ObjectId,
           ref: "product",
+          required: true,
         },
-        weightGrm: Number,
+        weightGrm: {
+          type: Number,
+          required: true,
+        },
       },
     ],
   },
@@ -28,11 +31,3 @@ const dietarySchema = Schema(
 const Dietary = model("dietary", dietarySchema, "dietary");
 
 module.exports = { Dietary };
-
-// const joiDietarySchema = Joi.object({
-//   date: Joi.string().required(),
-//   products: Joi.array().object().keys({
-//     product: Joi.object().required(),
-//     weightGrm: Joi.number().required(),
-//   }),
-// });
