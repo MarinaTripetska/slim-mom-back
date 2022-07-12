@@ -1,3 +1,4 @@
 const dietaryService = require("./dietaryService");
+const productService = require("./productsServices");
 
-module.exports = { dietaryService };
+module.exports = { dietaryService, productService };
