@@ -1,11 +1,13 @@
 const { createError } = require("../errors/createError");
-const { listProducts } = require("../services/productsServices");
+const { productService } = require("../services");
 
 const getAllProducts = async (req, res, next) => {
-  const products = await listProducts();
+  const products = await productService.listProducts();
+
   if (!products) {
     throw createError(404, "Not found");
-  }
+  };
+
   res.status(200).json({
     status: "OK",
     code: 200,
@@ -18,8 +20,10 @@ const getAllProducts = async (req, res, next) => {
 
 const getProductsForQuery = async (req, res, next) => {
   const { query = "" } = req.query;
-  const products = await listProducts();
+  const products = await productService.listProducts();
+
   const arrayFoundProducts = [];
+  
   products.filter((prod) => {
     const itemProduct = prod.title.ua.toLowerCase().trim();
     if (itemProduct.includes(query.toLowerCase().trim())) {

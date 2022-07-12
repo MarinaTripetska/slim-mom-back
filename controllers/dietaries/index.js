@@ -1,10 +1,10 @@
-const getDietDay = require("./getDietDay");
+const getDailyDiet = require("./getDailyDiet");
 const deleteDailyDiet = require("./deleteDailyDiet");
 const updateDailyDiet = require("./updateDailyDiet");
 const createDailyDiet = require("./createDailyDiet");
 
 module.exports = {
-  getDietDay,
+  getDailyDiet,
   createDailyDiet,
   updateDailyDiet,
   deleteDailyDiet,

@@ -26,12 +26,37 @@ Dietary
 
 Get diet day :
 GET: 'host'/api/v1/dietaries/
+req.user = {
+token
+},
+req.body = {
+date
+}
 
 Create daily diet :
 POST: 'host'/api/v1/dietaries/
+req.user = {token},
+req.body = {
+date,
+products: [
+{product: productId,
+weightGrm: num
+}]}
+or { date }
 
 Update daily diet:
 PATCH: 'host'/api/v1/dietaries/
+req.user = { token }
+req.body = {
+date,
+data: {
+product: productId,
+weightGrm
+}
+}
 
 Delete daily diet:
 DELETE: 'host'/api/v1/dietaries/:productId
+req.user = { token }
+req.params = productId
+req.body = { date }

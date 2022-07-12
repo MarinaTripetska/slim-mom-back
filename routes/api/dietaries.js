@@ -4,7 +4,7 @@ const { dietaryCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-router.get("/", auth, ctrlWrapper(dietaryCtrl.getDietDay));
+router.get("/", auth, ctrlWrapper(dietaryCtrl.getDailyDiet));
 
 router.post("/", auth, ctrlWrapper(dietaryCtrl.createDailyDiet));
 

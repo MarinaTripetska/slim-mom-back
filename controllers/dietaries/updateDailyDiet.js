@@ -7,7 +7,7 @@ const updateDailyDiet = async (req, res, next) => {
   const result = await dietaryService.updateDietary(userId, req.body);
 
   if (!result) {
-    throw createError(404, "Dietary on this day not found");
+    throw createError(404, "Not found");
   }
 
   res.status(200).json({

@@ -1,5 +1,6 @@
 const updateDietary = require("./updateDietary");
-const findDietary = require("./findDietary");
+const getDietary = require("./getDietary");
 const createDietary = require("./createDietary");
+const deleteDietary = require("./deleteDietary");
 
-module.exports = { updateDietary, findDietary, createDietary };
+module.exports = { updateDietary, getDietary, createDietary, deleteDietary };
