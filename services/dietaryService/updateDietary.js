@@ -1,12 +1,8 @@
-const { createError } = require("../../errors/createError");
 const { Dietary } = require("../../models");
 
 const updateDietary = async (_id, payload) => {
   const { date, data } = payload;
 
-  if (!data) {
-    throw createError(404, "Product not found");
-  }
   return await Dietary.findOneAndUpdate(
     {
       owner: _id,

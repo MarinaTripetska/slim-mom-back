@@ -5,6 +5,10 @@ const getDailyDiet = async (req, res) => {
 
   const result = await dietaryService.getDietary(_id, req.body);
 
+  if (!result) {
+    throw new Error("Dietary not found");
+  }
+
   res.status(200).json({
     status: "OK",
     code: 200,

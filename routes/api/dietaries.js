@@ -1,15 +1,39 @@
 const express = require("express");
-const { ctrlWrapper, auth } = require("../../middlewares");
+const {
+  joiDietaryDateSchema,
+  joiDietaryUpdateDateSchema,
+  joiGetDateSchema,
+} = require("../../models");
+const { ctrlWrapper, auth, validation } = require("../../middlewares");
 const { dietaryCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-router.get("/", auth, ctrlWrapper(dietaryCtrl.getDailyDiet));
+router.get(
+  "/",
+  ctrlWrapper(auth),
+  validation(joiGetDateSchema),
+  ctrlWrapper(dietaryCtrl.getDailyDiet)
+);
 
-router.post("/", auth, ctrlWrapper(dietaryCtrl.createDailyDiet));
+router.post(
+  "/",
+  ctrlWrapper(auth),
+  validation(joiDietaryDateSchema),
+  ctrlWrapper(dietaryCtrl.createDailyDiet)
+);
 
-router.patch("/", auth, ctrlWrapper(dietaryCtrl.updateDailyDiet));
+router.patch(
+  "/",
+  ctrlWrapper(auth),
+  validation(joiDietaryUpdateDateSchema),
+  ctrlWrapper(dietaryCtrl.updateDailyDiet)
+);
 
-router.delete("/:productId", auth, ctrlWrapper(dietaryCtrl.deleteDailyDiet));
+router.delete(
+  "/:productId",
+  ctrlWrapper(auth),
+  ctrlWrapper(dietaryCtrl.deleteDailyDiet)
+);
 
 module.exports = router;

@@ -1,4 +1,3 @@
-const { createError } = require("../../errors/createError");
 const { Dietary } = require("../../models");
 
 const createDietary = async (_id, payload) => {
@@ -14,7 +13,7 @@ const createDietary = async (_id, payload) => {
     });
 
   if (dietaryExist) {
-    throw createError(404, "Dietary already exists.");
+    throw new Error("Dietary already exists");
   }
 
   return await Dietary.create({ owner: _id, date, products });

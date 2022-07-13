@@ -56,12 +56,18 @@ const joiUserInfoSchema = Joi.object({
 });
 
 const joiRegisterSchema = Joi.object({
-  password: Joi.string().required(),
+  password: Joi.string()
+    .min(3)
+    .max(254)
+    .regex(/(?=.*[0-9])[^!@#$%^&*()_;:]$/)
+    .required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net"] },
     })
+    .min(3)
+    .max(254)
     .required(),
   name: Joi.string().required(),
 });
