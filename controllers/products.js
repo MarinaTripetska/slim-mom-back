@@ -1,12 +1,7 @@
-const { createError } = require("../errors/createError");
 const { productService } = require("../services");
 
 const getAllProducts = async (req, res, next) => {
   const products = await productService.listProducts();
-
-  if (!products) {
-    throw createError(404, "Not found");
-  }
 
   res.status(200).json({
     status: "OK",
@@ -34,10 +29,6 @@ const getProductsForQuery = async (req, res, next) => {
     }
     return arrayFoundProducts;
   });
-
-  if (!products) {
-    throw createError(404, "Not found");
-  }
 
   res.status(200).json({
     status: "OK",
