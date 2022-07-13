@@ -7,8 +7,7 @@ const getDietary = async (_id, payload) => {
   const dietary = await Dietary.findOne({
     owner: _id,
     date: date,
-  })
-    .populate("owner", "_id name email")
+  }).populate("owner", "_id name email")
     .populate({
       path: "products.product",
       select: "title calories",

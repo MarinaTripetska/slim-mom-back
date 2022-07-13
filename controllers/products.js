@@ -6,7 +6,7 @@ const getAllProducts = async (req, res, next) => {
 
   if (!products) {
     throw createError(404, "Not found");
-  };
+  }
 
   res.status(200).json({
     status: "OK",
@@ -23,11 +23,14 @@ const getProductsForQuery = async (req, res, next) => {
   const products = await productService.listProducts();
 
   const arrayFoundProducts = [];
-  
+
   products.filter((prod) => {
     const itemProduct = prod.title.ua.toLowerCase().trim();
     if (itemProduct.includes(query.toLowerCase().trim())) {
-      return arrayFoundProducts.push(prod.title.ua);
+      return arrayFoundProducts.push({
+        title: prod.title.ua,
+        _id: prod._id,
+      });
     }
     return arrayFoundProducts;
   });
