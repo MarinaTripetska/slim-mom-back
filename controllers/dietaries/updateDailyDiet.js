@@ -1,4 +1,3 @@
-const { createError } = require("../../errors/createError");
 const { dietaryService } = require("../../services");
 
 const updateDailyDiet = async (req, res, next) => {
@@ -7,7 +6,7 @@ const updateDailyDiet = async (req, res, next) => {
   const result = await dietaryService.updateDietary(userId, req.body);
 
   if (!result) {
-    throw createError(404, "Not found");
+    throw new Error("Wrong date");
   }
 
   res.status(200).json({

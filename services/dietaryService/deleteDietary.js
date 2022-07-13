@@ -1,4 +1,3 @@
-const { createError } = require("../../errors/createError");
 const { Dietary } = require("../../models");
 
 const deleteDietary = async (_id, productId, payload) => {
@@ -14,10 +13,6 @@ const deleteDietary = async (_id, productId, payload) => {
       path: "products.product",
       select: "title calories",
     });
-
-  if (!res) {
-    throw createError(404, "Not found");
-  }
 
   return res;
 };

@@ -8,12 +8,12 @@ const { userCtrl } = require("../../controllers");
 const router = express.Router();
 
 router.get(
-  "/getNutritionAdvice",
+  "/nutrition-advice",
   validation(joiUserInfoSchema),
   ctrlWrapper(userCtrl.getNotLoggedUserDietAdvice)
 );
 router.post(
-  "/loggedUserNutritionAdvice",
+  "/logged-nutrition-advice",
   validation(joiUserInfoSchema),
   ctrlWrapper(auth),
   ctrlWrapper(userCtrl.getLoggedUserDietAdvice)

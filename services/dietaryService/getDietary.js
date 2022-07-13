@@ -1,4 +1,3 @@
-const { createError } = require("../../errors/createError");
 const { Dietary } = require("../../models");
 
 const getDietary = async (_id, payload) => {
@@ -13,10 +12,6 @@ const getDietary = async (_id, payload) => {
       path: "products.product",
       select: "title calories",
     });
-
-  if (!dietary) {
-    throw createError(404, "Dietary not found");
-  }
 
   return dietary;
 };

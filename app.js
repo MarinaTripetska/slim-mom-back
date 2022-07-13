@@ -1,11 +1,17 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const errorHandler = require("./errors/errorHandler");
 require("dotenv").config();
 
 const app = express();
 
-const { userRouter, productsRouter, dietariesRouter, authRouter } = require("./routes/api");
+const {
+  userRouter,
+  productsRouter,
+  dietariesRouter,
+  authRouter,
+} = require("./routes/api");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -21,9 +27,6 @@ app.use((_, res, next) => {
   next({ status: 404, message: "Not found" });
 });
 
-app.use((err, _, res, next) => {
-  const { status = 500, message = "Internal Server Error" } = err;
-  res.status(status).json({ message });
-});
+app.use(errorHandler);
 
 module.exports = app;
