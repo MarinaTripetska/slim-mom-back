@@ -27,7 +27,10 @@ const getProductsForQuery = async (req, res, next) => {
   products.filter((prod) => {
     const itemProduct = prod.title.ua.toLowerCase().trim();
     if (itemProduct.includes(query.toLowerCase().trim())) {
-      return arrayFoundProducts.push(prod.title.ua);
+      return arrayFoundProducts.push({
+        title: prod.title.ua,
+        _id: prod._id,
+      });
     }
     return arrayFoundProducts;
   });
