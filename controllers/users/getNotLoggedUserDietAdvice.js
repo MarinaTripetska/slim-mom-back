@@ -5,6 +5,7 @@ const { notRecommendedProducts } = require("../../helpers");
 const getNotLoggedUserDietAdvice = async (req, res) => {
   const { height, age, currentWeight, desiredWeight, bloodType } =
     req.body.userData;
+
   const userDailyCalorieIntake = dailyCalorieIntake(
     height,
     age,
