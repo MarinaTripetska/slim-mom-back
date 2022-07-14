@@ -7,7 +7,7 @@ const { userCtrl } = require("../../controllers");
 
 const router = express.Router();
 
-router.get(
+router.post(
   "/nutrition-advice",
   validation(joiUserInfoSchema),
   ctrlWrapper(userCtrl.getNotLoggedUserDietAdvice)
