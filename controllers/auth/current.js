@@ -8,6 +8,7 @@ const current = async (req, res, next) => {
       user: {
         email: user.email,
         name: user.name,
+        userInfo: { ...user.userInfo },
       },
     },
   });
