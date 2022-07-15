@@ -28,6 +28,9 @@ const login = async (req, res) => {
       user: {
         email,
         name: user.name,
+        userInfo: user.userInfo,
+        userDailyCalorieIntake: user.userDailyCalorieIntake,
+        userNotRecommendedProducts: user.userNotRecommendedProducts,
       },
     },
   });
