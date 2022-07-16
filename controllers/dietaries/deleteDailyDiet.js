@@ -3,7 +3,7 @@ const { dietaryService } = require("../../services");
 const deleteDailyDiet = async (req, res, next) => {
   const { productId } = req.params;
   const { _id: userId } = req.user;
-  console.log(1, productId);
+  console.log(1, req.params);
   console.log(2, req.body);
 
   const result = await dietaryService.deleteDietary(

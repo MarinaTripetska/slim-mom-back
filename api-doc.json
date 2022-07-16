@@ -139,7 +139,7 @@
     },
     "/users/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": ["Users"],
         "summary": "Current user (requires authentication token)",
         "parameters": [],
         "security": [
@@ -406,9 +406,8 @@
           {
             "in": "path",
             "required": true,
-            "type": "integer",
             "name": "productId ",
-            "description": "productId"
+            "description": "product Id"
           }
         ],
         "security": [
@@ -417,7 +416,7 @@
           }
         ],
         "requestBody": {
-          "description": "Body of request for nutrition-advice",
+          "description": "Body of request to remove product",
           "required": true,
           "content": {
             "application/json": {
@@ -435,7 +434,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully get daily diet"
+            "description": "Successfully remove product"
           },
           "400": {
             "description": "Validation error"
@@ -444,7 +443,44 @@
             "description": "User unauthorized"
           },
           "404": {
-            "description": "Dietary not found"
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get all products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get all products"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get all products by query",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "query",
+            "description": "productQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get all products"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -503,42 +539,36 @@
             "type": "string",
             "example": "6248c39b6e52d51aeeabcc33"
           },
-          "email": {
-            "type": "string",
-            "example": "user@gmail.com"
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": {
+              "ru": "Яйцо куриное (желток сухой)",
+              "ua": "Яйце куряче (жовток сухий)"
+            }
           },
-          "name": {
-            "type": "string",
-            "example": "Mango"
+          "calories": {
+            "type": "integer",
+            "example": "623"
           },
-          "token": {
-            "type": "string",
+          "title": {
+            "type": "object",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
           },
-          "userInfo": {
-            "type": "object",
+          "groupBloodNotAllowed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "example": {
-              "height": "180",
+              "height": "222",
               "age": "31",
               "currentWeight": "102",
               "desiredWeight": "93",
               "bloodType": "3"
             }
-          },
-          "userDailyCalorieIntake": {
-            "type": "integer",
-            "example": "2500"
-          },
-          "userNotRecommendedProducts": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": ["мучные", "молчные", "мясо"]
-          },
-          "password": {
-            "type": "string",
-            "example": "strong_password"
           }
         }
       },
@@ -548,42 +578,24 @@
             "type": "string",
             "example": "6248c39b6e52d51aeeabcc33"
           },
-          "email": {
+          "owner": {
             "type": "string",
-            "example": "user@gmail.com"
+            "example": "62d08a8ab3e2cb7e09b46bd9"
           },
-          "name": {
+          "date": {
             "type": "string",
-            "example": "Mango"
+            "example": "12.12.2222"
           },
-          "token": {
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
-          },
-          "userInfo": {
-            "type": "object",
-            "example": {
-              "height": "180",
-              "age": "31",
-              "currentWeight": "102",
-              "desiredWeight": "93",
-              "bloodType": "3"
-            }
-          },
-          "userDailyCalorieIntake": {
-            "type": "integer",
-            "example": "2500"
-          },
-          "userNotRecommendedProducts": {
+          "products": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object"
             },
-            "example": ["мучные", "молчные", "мясо"]
-          },
-          "password": {
-            "type": "string",
-            "example": "strong_password"
+            "example": {
+              "product": "5d51694802b2373622ff5561",
+              "weightGrm": "100",
+              "_id": "62d1f2e8e3126a6ccc9aad29"
+            }
           }
         }
       }
