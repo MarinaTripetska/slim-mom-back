@@ -7,7 +7,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000/api/v1"
+    },
+    {
+      "url": "https://slim-mom-back.herokuapp.com/api/v1"
     }
   ],
   "apis": ["routes/api/*.js"],
@@ -31,7 +34,7 @@
   ],
   "schemes": ["http"],
   "paths": {
-    "/api/v1/users/signup": {
+    "/users/signup": {
       "post": {
         "summary": "User Registration",
         "tags": ["Auth"],
@@ -41,55 +44,555 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Frodo Baggins"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "frodobaggins@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepassword1"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "User was created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+            "description": "User was created successfully"
           },
           "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Email, password and name should be provided"
-                    }
+            "description": "User creation error"
+          },
+          "409": {
+            "description": "Can't create user because email already taken"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "Body of request for user login",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "frodobaggins@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepassword1"
                   }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully logged in"
           },
-          "409": {
-            "description": "Can't create user because email already taken",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "User with email: {{submited email}} already exist"
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Logout user (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully logged out"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Current user (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information found"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/nutrition-advice": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Nutrition-advice",
+        "requestBody": {
+          "description": "Body of request for nutrition-advice",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userData": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "example": "120"
+                      },
+                      "age": {
+                        "type": "string",
+                        "example": "99"
+                      },
+                      "currentWeight": {
+                        "type": "string",
+                        "example": "150"
+                      },
+                      "desiredWeight": {
+                        "type": "string",
+                        "example": "40"
+                      },
+                      "bloodType": {
+                        "type": "string",
+                        "example": "4"
+                      }
                     }
                   }
                 }
               }
             }
           }
+        },
+        "responses": {
+          "204": {
+            "description": "Successfully get nutrition advice"
+          },
+          "400": {
+            "description": "Validation error"
+          }
         }
+      }
+    },
+    "/users/logged-nutrition-advice": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Nutrition-advice (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for nutrition-advice",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userData": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "example": "120"
+                      },
+                      "age": {
+                        "type": "string",
+                        "example": "99"
+                      },
+                      "currentWeight": {
+                        "type": "string",
+                        "example": "150"
+                      },
+                      "desiredWeight": {
+                        "type": "string",
+                        "example": "40"
+                      },
+                      "bloodType": {
+                        "type": "string",
+                        "example": "4"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully get nutrition advice"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/dietaries": {
+      "post": {
+        "tags": ["Dietaries"],
+        "summary": "Create daily diet (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for creating dietaries",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "12.12.2222"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully сreate daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Dietary already exists"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Dietaries"],
+        "summary": "Update daily diet (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for updating dietaries. Value of product its id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "12.12.2222"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "product": {
+                        "type": "string",
+                        "example": "5d51694802b2373622ff553"
+                      },
+                      "weightGrm": {
+                        "type": "number",
+                        "example": "100"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully update daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Dietaries"],
+        "summary": "Get diet day (requires authentication token)",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "date",
+            "description": "date"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Dietary not found"
+          }
+        }
+      }
+    },
+    "/dietaries/{productId}": {
+      "delete": {
+        "tags": ["Dietaries"],
+        "summary": "Delete diet day (requires authentication token)",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "name": "productId ",
+            "description": "productId"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for nutrition-advice",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "12.12.2222"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully get daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Dietary not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mango"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
+          },
+          "userInfo": {
+            "type": "object",
+            "example": {
+              "height": "180",
+              "age": "31",
+              "currentWeight": "102",
+              "desiredWeight": "93",
+              "bloodType": "3"
+            }
+          },
+          "userDailyCalorieIntake": {
+            "type": "integer",
+            "example": "2500"
+          },
+          "userNotRecommendedProducts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["мучные", "молчные", "мясо"]
+          },
+          "password": {
+            "type": "string",
+            "example": "strong_password"
+          }
+        }
+      },
+      "Products": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mango"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
+          },
+          "userInfo": {
+            "type": "object",
+            "example": {
+              "height": "180",
+              "age": "31",
+              "currentWeight": "102",
+              "desiredWeight": "93",
+              "bloodType": "3"
+            }
+          },
+          "userDailyCalorieIntake": {
+            "type": "integer",
+            "example": "2500"
+          },
+          "userNotRecommendedProducts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["мучные", "молчные", "мясо"]
+          },
+          "password": {
+            "type": "string",
+            "example": "strong_password"
+          }
+        }
+      },
+      "Dietary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mango"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
+          },
+          "userInfo": {
+            "type": "object",
+            "example": {
+              "height": "180",
+              "age": "31",
+              "currentWeight": "102",
+              "desiredWeight": "93",
+              "bloodType": "3"
+            }
+          },
+          "userDailyCalorieIntake": {
+            "type": "integer",
+            "example": "2500"
+          },
+          "userNotRecommendedProducts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["мучные", "молчные", "мясо"]
+          },
+          "password": {
+            "type": "string",
+            "example": "strong_password"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
