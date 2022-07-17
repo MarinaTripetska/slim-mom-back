@@ -30,10 +30,6 @@ router.patch(
   ctrlWrapper(dietaryCtrl.updateDailyDiet)
 );
 
-router.delete(
-  "/:productId",
-  ctrlWrapper(auth),
-  ctrlWrapper(dietaryCtrl.deleteDailyDiet)
-);
+router.delete("/", ctrlWrapper(auth), ctrlWrapper(dietaryCtrl.deleteDailyDiet));
 
 module.exports = router;
