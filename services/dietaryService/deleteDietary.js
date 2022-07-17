@@ -14,6 +14,9 @@ const deleteDietary = async (_id, productId, payload) => {
       select: "title calories",
     });
 
+  if (res === null) {
+    throw new Error("Wrong date");
+  }
   return res;
 };
 

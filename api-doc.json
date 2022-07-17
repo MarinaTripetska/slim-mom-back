@@ -338,7 +338,7 @@
                     "properties": {
                       "product": {
                         "type": "string",
-                        "example": "5d51694802b2373622ff553"
+                        "example": "5d51694802b2373622ff5547"
                       },
                       "weightGrm": {
                         "type": "number",
@@ -396,18 +396,16 @@
             "description": "Dietary not found"
           }
         }
-      }
-    },
-    "/dietaries/{productId}": {
+      },
       "delete": {
         "tags": ["Dietaries"],
         "summary": "Delete diet day (requires authentication token)",
         "parameters": [
           {
-            "in": "path",
-            "required": true,
-            "name": "productId ",
-            "description": "product Id"
+            "in": "query",
+            "type": "string",
+            "name": "productId",
+            "description": "productId"
           }
         ],
         "security": [
@@ -451,7 +449,7 @@
     "/products": {
       "get": {
         "tags": ["Products"],
-        "summary": "Get all products",
+        "summary": "Get all products (do not press unless absolutely necessary)",
         "parameters": [],
         "responses": {
           "200": {
@@ -466,7 +464,7 @@
     "/products/search": {
       "get": {
         "tags": ["Products"],
-        "summary": "Get all products by query",
+        "summary": "Get products by query",
         "parameters": [
           {
             "in": "query",
@@ -560,15 +558,9 @@
           "groupBloodNotAllowed": {
             "type": "array",
             "items": {
-              "type": "string"
+              "oneOf": [{ "type": "null" }, { "type": "boolean" }]
             },
-            "example": {
-              "height": "222",
-              "age": "31",
-              "currentWeight": "102",
-              "desiredWeight": "93",
-              "bloodType": "3"
-            }
+            "example": [null, true, false, false, false]
           }
         }
       },
