@@ -57,19 +57,19 @@ const joiUserInfoSchema = Joi.object({
 
 const joiRegisterSchema = Joi.object({
   password: Joi.string()
-    .min(3)
-    .max(254)
+    .min(8)
+    .max(100)
     .regex(/(?=.*[0-9])[^!@#$%^&*()_;:]$/)
     .required(),
   email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    })
     .min(3)
     .max(254)
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "ua"] },
+    })
     .required(),
-  name: Joi.string().required(),
+  name: Joi.string().min(3).max(254).required(),
 });
 
 const joiLoginSchema = Joi.object({
@@ -77,7 +77,7 @@ const joiLoginSchema = Joi.object({
   email: Joi.string()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
+      tlds: { allow: ["com", "net", "ua"] },
     })
     .required(),
 });
