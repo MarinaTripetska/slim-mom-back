@@ -406,6 +406,12 @@
             "type": "string",
             "name": "productId",
             "description": "productId"
+          },
+          {
+            "in": "query",
+            "type": "string",
+            "name": "date",
+            "description": "date"
           }
         ],
         "security": [
@@ -413,23 +419,6 @@
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Body of request to remove product",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "string",
-                    "example": "12.12.2222"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successfully remove product"
