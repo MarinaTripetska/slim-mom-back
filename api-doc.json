@@ -1,0 +1,592 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Library API",
+    "version": "1.0.0",
+    "description": "Express Library API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    },
+    {
+      "url": "https://slim-mom-back.herokuapp.com/api/v1"
+    }
+  ],
+  "apis": ["routes/api/*.js"],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "User endpoints"
+    },
+    {
+      "name": "Dietaries",
+      "description": "Dietaries endpoint"
+    },
+    {
+      "name": "Products",
+      "description": "Products endpoint"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "User Registration",
+        "tags": ["Auth"],
+        "requestBody": {
+          "description": "Body of request for user registration",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Frodo Baggins"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "frodobaggins@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepassword1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User was created successfully"
+          },
+          "400": {
+            "description": "User creation error"
+          },
+          "409": {
+            "description": "Can't create user because email already taken"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "Body of request for user login",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "frodobaggins@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepassword1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully logged in"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Logout user (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully logged out"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Current user (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information found"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/users/nutrition-advice": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Nutrition-advice",
+        "requestBody": {
+          "description": "Body of request for nutrition-advice",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userData": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "example": "120"
+                      },
+                      "age": {
+                        "type": "string",
+                        "example": "99"
+                      },
+                      "currentWeight": {
+                        "type": "string",
+                        "example": "150"
+                      },
+                      "desiredWeight": {
+                        "type": "string",
+                        "example": "40"
+                      },
+                      "bloodType": {
+                        "type": "string",
+                        "example": "4"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successfully get nutrition advice"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/users/logged-nutrition-advice": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Nutrition-advice (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for nutrition-advice",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userData": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "example": "120"
+                      },
+                      "age": {
+                        "type": "string",
+                        "example": "99"
+                      },
+                      "currentWeight": {
+                        "type": "string",
+                        "example": "150"
+                      },
+                      "desiredWeight": {
+                        "type": "string",
+                        "example": "40"
+                      },
+                      "bloodType": {
+                        "type": "string",
+                        "example": "4"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully get nutrition advice"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          }
+        }
+      }
+    },
+    "/dietaries": {
+      "post": {
+        "tags": ["Dietaries"],
+        "summary": "Create daily diet (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for creating dietaries",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "12.12.2222"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully сreate daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Dietary already exists"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Dietaries"],
+        "summary": "Update daily diet (requires authentication token)",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Body of request for updating dietaries. Value of product its id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "12.12.2222"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "product": {
+                        "type": "string",
+                        "example": "5d51694802b2373622ff5547"
+                      },
+                      "weightGrm": {
+                        "type": "number",
+                        "example": "100"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully update daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Dietaries"],
+        "summary": "Get diet day (requires authentication token)",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "date",
+            "description": "date"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get daily diet"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Dietary not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Dietaries"],
+        "summary": "Delete diet day (requires authentication token)",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "productId",
+            "description": "productId"
+          },
+          {
+            "in": "query",
+            "type": "string",
+            "name": "date",
+            "description": "date"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully remove product"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "User unauthorized"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get all products (do not press unless absolutely necessary)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get all products"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get products by query",
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "query",
+            "description": "productQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get all products"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@gmail.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mango"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
+          },
+          "userInfo": {
+            "type": "object",
+            "example": {
+              "height": "180",
+              "age": "31",
+              "currentWeight": "102",
+              "desiredWeight": "93",
+              "bloodType": "3"
+            }
+          },
+          "userDailyCalorieIntake": {
+            "type": "integer",
+            "example": "2500"
+          },
+          "userNotRecommendedProducts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["мучные", "молчные", "мясо"]
+          },
+          "password": {
+            "type": "string",
+            "example": "strong_password"
+          }
+        }
+      },
+      "Products": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": {
+              "ru": "Яйцо куриное (желток сухой)",
+              "ua": "Яйце куряче (жовток сухий)"
+            }
+          },
+          "calories": {
+            "type": "integer",
+            "example": "623"
+          },
+          "title": {
+            "type": "object",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDhjMzliNmU1MmQ1MWFlZWFiY2MzMyIsImlhdCI6MTY0ODkzNzY1OSwiZXhwIjoxNjQ5MDI0MDU5fQ.R_xVuzsK9Nzs9sj98Lk1lidJB27xDUjhYBOiPU-_fmY"
+          },
+          "groupBloodNotAllowed": {
+            "type": "array",
+            "items": {
+              "oneOf": [{ "type": "null" }, { "type": "boolean" }]
+            },
+            "example": [null, true, false, false, false]
+          }
+        }
+      },
+      "Dietary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "6248c39b6e52d51aeeabcc33"
+          },
+          "owner": {
+            "type": "string",
+            "example": "62d08a8ab3e2cb7e09b46bd9"
+          },
+          "date": {
+            "type": "string",
+            "example": "12.12.2222"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "example": {
+              "product": "5d51694802b2373622ff5561",
+              "weightGrm": "100",
+              "_id": "62d1f2e8e3126a6ccc9aad29"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
