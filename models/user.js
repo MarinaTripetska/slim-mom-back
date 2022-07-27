@@ -59,7 +59,7 @@ const joiRegisterSchema = Joi.object({
   password: Joi.string()
     .min(8)
     .max(100)
-    .regex(/(?=.*[0-9])[^!@#$%^&*()_;:]$/)
+    .regex(/(?=.*[0-9])(?=.*[a-z])[0-9a-zA-Z]{8,}/)
     .required(),
   email: Joi.string()
     .min(3)
