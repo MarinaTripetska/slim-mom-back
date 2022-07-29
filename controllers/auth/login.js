@@ -1,7 +1,5 @@
 const { User } = require("../../models");
-const jwt = require("jsonwebtoken");
-
-const { SECRET_KEY } = process.env;
+const { updateTokens } = require("../../services");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -10,21 +8,15 @@ const login = async (req, res) => {
     throw new TypeError();
   }
 
-  let { _id: id, token } = user;
+  let { _id: userId, tokens } = user;
 
-  const payload = {
-    id,
-  };
-
-  token = jwt.sign(payload, SECRET_KEY);
-
-  await User.findByIdAndUpdate(id, { token }, { expiresIn: "1h" });
+  tokens = await updateTokens(userId);
 
   res.status(200).json({
     status: "success",
     code: 200,
     data: {
-      token,
+      tokens,
       user: {
         email,
         name: user.name,

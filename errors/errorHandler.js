@@ -32,12 +32,18 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(message, 401);
   }
 
-  if (
-    err.name === "JsonWebTokenError" ||
-    error.message === "Not authorized" ||
-    err.name === "TokenExpiredError"
-  ) {
+  if (error.message === "Not authorized") {
     const message = "Not authorized";
+    error = new ErrorResponse(message, 401);
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    const message = "Invalid token";
+    error = new ErrorResponse(message, 401);
+  }
+
+  if (err.name === "TokenExpiredError") {
+    const message = "Token expired";
     error = new ErrorResponse(message, 401);
   }
 
